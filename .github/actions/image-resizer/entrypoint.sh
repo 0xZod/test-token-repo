@@ -10,13 +10,20 @@ SIZE=$2
 SUBFOLDER_NAME=$3
 
 # Create the subfolder in each directory containing images
-find $SOURCE_DIR -type d | while read dir; do
+find "$SOURCE_DIR" -type d | while read -r dir; do
   mkdir -p "${dir}/${SUBFOLDER_NAME}"
 done
 
-# Find and resize images, then save them in the corresponding subfolder
-find $SOURCE_DIR -iname "*.png" -o -iname "*.jpg" | while read img; do
+# Find and resize PNG images, then save them in the corresponding subfolder
+find "$SOURCE_DIR" -maxdepth 1 -iname "*.png" | while read -r img; do
   DIR=$(dirname "${img}")
   BASENAME=$(basename "${img}")
-  convert "$img" -resize $SIZE "${DIR}/${SUBFOLDER_NAME}/${BASENAME}"
+  TARGET="${DIR}/${SUBFOLDER_NAME}/${BASENAME}"
+  
+  # Check if the resized image already exists
+  if [ ! -f "$TARGET" ]; then
+    convert "$img" -resize "$SIZE" "$TARGET"
+  else
+    echo "Resized image already exists: $TARGET"
+  fi
 done

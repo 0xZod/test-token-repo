@@ -3,7 +3,7 @@ name: Resize Images
 on:
   push:
     paths:
-      - "fantom/images/**"
+      - "fantom/images/*"
 
 jobs:
   resize-images:
