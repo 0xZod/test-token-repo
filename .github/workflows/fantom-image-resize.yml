@@ -8,7 +8,6 @@ on:
 jobs:
   resize-images:
     runs-on: ubuntu-latest
-    # runs-on: self-hosted
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -19,3 +18,18 @@ jobs:
           path: "fantom/images/"
           size: "128x128"
           subfolder_name: "128x128"
+      - name: Configure Git
+        run: |
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+
+      - name: Commit resized images
+        run: |
+          git add fantom/images/128x128/
+          git commit -m "Add resized images" || echo "No changes to commit"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
