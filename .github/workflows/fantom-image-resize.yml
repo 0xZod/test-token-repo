@@ -20,19 +20,6 @@ jobs:
           size: "128x128"
           subfolder_name: "128x128"
 
-      - name: Resize images
-        uses: ./.github/actions/image-resizer
-        with:
-          path: "fantom/images/"
-          size: "256x256"
-          subfolder_name: "256x256"
-
-      - name: Resize images
-        uses: ./.github/actions/image-resizer
-        with:
-          path: "fantom/images/"
-          size: "512x512"
-          subfolder_name: "512x512"
       - name: Configure Git
         run: |
           git config --global user.email "0xZod@protom.me"
