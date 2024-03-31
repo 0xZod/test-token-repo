@@ -3,7 +3,7 @@ name: Resize Images
 on:
   push:
     paths:
-      - "fantom/images/*"
+      - "fantom/tokens/*"
 
 jobs:
   resize-images:
@@ -16,7 +16,7 @@ jobs:
       - name: Resize images
         uses: ./.github/actions/image-resizer
         with:
-          path: "fantom/images/"
+          path: "fantom/tokens/"
           size: "128x128"
           subfolder_name: "128x128"
 
@@ -27,7 +27,7 @@ jobs:
 
       - name: Commit resized images
         run: |
-          git add fantom/images/128x128/
+          git add fantom/tokens/128x128/
           git commit -m "Add resized images" || echo "No changes to commit"
 
       - name: Push changes
