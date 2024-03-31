@@ -1,0 +1,19 @@
+name: "Image Resizer"
+description: "Resizes images to a specified size and stores them in a subfolder."
+inputs:
+  path:
+    description: "The path to the directory containing images to resize."
+    required: true
+  size:
+    description: "The desired size of the images, e.g., 120x120."
+    required: true
+  subfolder_name:
+    description: "The name of the subfolder to store resized images in."
+    required: true
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  args:
+    - ${{ inputs.path }}
+    - ${{ inputs.size }}
+    - ${{ inputs.subfolder_name }}

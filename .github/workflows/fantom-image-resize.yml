@@ -1,0 +1,20 @@
+name: Resize Images
+
+on:
+  push:
+    paths:
+      - "fantom/images/**"
+
+jobs:
+  resize-images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Resize images
+        uses: ./.github/actions/image-resizer
+        with:
+          path: "fantom/images/"
+          size: "128x128"
+          subfolder_name: "128x128"
